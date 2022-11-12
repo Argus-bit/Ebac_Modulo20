@@ -29,10 +29,14 @@ public class ItemCollatableBase : MonoBehaviour
             Collect();
         }
     }
+    protected virtual void HideItems()
+    {
+        if (graphicItem != null) graphicItem.SetActive(false);
+        gameObject.SetActive(false);
+    }
     protected virtual void Collect()
     {
-        if(graphicItem !=null) graphicItem.SetActive(false);
-        gameObject.SetActive(false);
+        HideItems();
         OnCollect();
     }
     private void HideObject()
