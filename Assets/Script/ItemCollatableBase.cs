@@ -39,7 +39,7 @@ public class ItemCollatableBase : MonoBehaviour
         HideItems();
         OnCollect();
     }
-    private void HideObject()
+     private void HideObject()
     {
         gameObject.SetActive(false);
     }

@@ -5,13 +5,22 @@ using EBAC.Core.Singleton;
 
 public class PlayerController : Singleton<PlayerController>
 {
-	public string tagToCheckEnemy = "Enemy";
-	public float speed = 1f;
-	private bool _canRun;
-	private Vector3 _pos;
+	[Header("Lerp")]
 	public Transform target;
 	public float lerpSpeed = 1f;
+
+	public float speed = 1f;
+
+	public string tagToCheckEnemy = "Enemy";
+	public string tagToCheckEndLine = "EndLine";
+
 	public GameObject endgame;
+
+	[Header("Animation")]
+	public AnimatorManager animatorManager;
+
+	private bool _canRun;
+	private Vector3 _pos;
 	public float _currentSpeed;
 	public bool invencible = true;
 	private Vector3 _startPosition;
@@ -34,18 +43,28 @@ public class PlayerController : Singleton<PlayerController>
 	{
 		if (collision.transform.CompareTag(tagToCheckEnemy))
 		{
-			if(!invencible) EndGame();
+			if(!invencible) EndGame(AnimatorManager.AnimationType.DEAD);
+		}
+		if (collision.transform.CompareTag(tagToCheckEndLine))
+		{
+			EndGame(AnimatorManager.AnimationType.IDLE);
 		}
 	}
-	private void EndGame()
+	private void EndGame(AnimatorManager.AnimationType animationType = AnimatorManager.AnimationType.IDLE)
     {
 		_canRun = false;
 		endgame.SetActive(true);
+		animatorManager.Play(animationType);
 
 	}
+	private void MoveBack(Transform t)
+    {
+		
+    }
 	public void StartRun()
 	{
 		_canRun = true;
+		animatorManager.Play(AnimatorManager.AnimationType.RUN);
 	}
 
 	#region POWERUPS
