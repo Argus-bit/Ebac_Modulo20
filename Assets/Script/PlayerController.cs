@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EBAC.Core.Singleton;
+using DG.Tweening;
 
 public class PlayerController : Singleton<PlayerController>
 {
@@ -19,6 +20,12 @@ public class PlayerController : Singleton<PlayerController>
 	[Header("Animation")]
 	public AnimatorManager animatorManager;
 
+	[Header("Animation Player")]
+	public float scaleDuration = .2f;
+	public Ease ease = Ease.OutBack;
+
+	[SerializeField] private BounceHelper _bounceHelper;
+
 	private bool _canRun;
 	private Vector3 _pos;
 	public float _currentSpeed;
@@ -29,8 +36,17 @@ public class PlayerController : Singleton<PlayerController>
     {
 		_startPosition = transform.position;
 		ResetSpeed();
+
+		transform.localScale = Vector3.zero;
+		transform.DOScale(1, scaleDuration).SetEase(ease);
+	}
+
+	public void Bounce()
+    {
+		if(_bounceHelper != null)
+		_bounceHelper.Bounce();
     }
-    void Update()
+	void Update()
 	{
 		if (!_canRun) return;
 		_pos = target.position;

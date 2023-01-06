@@ -17,8 +17,8 @@ public class ItemCollatableBase : MonoBehaviour
     //muda a Hierarquida de dentro do projeto
     private void Awake()
     {
-       if(GetComponent<ParticleSystem>() != null) GetComponent<ParticleSystem>().transform.SetParent(null);
-       if(audioSource != null) audioSource.transform.SetParent(null);
+      // if(GetComponent<ParticleSystem>() != null) GetComponent<ParticleSystem>().transform.SetParent(null);
+      // if(audioSource != null) audioSource.transform.SetParent(null);
     }
     //muda a Hierarquida de dentro do projeto
 
@@ -32,7 +32,8 @@ public class ItemCollatableBase : MonoBehaviour
     protected virtual void HideItems()
     {
         if (graphicItem != null) graphicItem.SetActive(false);
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
+        Invoke("HideObject", timeToHide);
     }
     protected virtual void Collect()
     {

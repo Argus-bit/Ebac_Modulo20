@@ -5,12 +5,6 @@ using UnityEngine;
 public class PowerUpCoin : PowerUpBase
 {
     public float sizeAmount = 7;
-
-    protected override void StartPowerUp()
-    {
-        base.StartPowerUp();
-        PlayerController.Instance.ChangeCoinCollactorSize(sizeAmount);
-    }
     protected override void EndPowerUp()
     {
         base.EndPowerUp();
