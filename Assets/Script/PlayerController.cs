@@ -17,8 +17,18 @@ public class PlayerController : Singleton<PlayerController>
 
 	public GameObject endgame;
 
+
+
 	[Header("Animation")]
 	public AnimatorManager animatorManager;
+
+	[Header("Animation")]
+	public ParticleSystem vfxDeath;
+
+	[Header("Animation Finish")]
+	public GameObject congratulations;
+	public GameObject congratulationsTo;
+
 
 	[Header("Animation Player")]
 	public float scaleDuration = .2f;
@@ -64,6 +74,9 @@ public class PlayerController : Singleton<PlayerController>
 		if (collision.transform.CompareTag(tagToCheckEndLine))
 		{
 			EndGame(AnimatorManager.AnimationType.IDLE);
+			congratulations.SetActive(true);
+			congratulationsTo.SetActive(true);
+
 		}
 	}
 	private void EndGame(AnimatorManager.AnimationType animationType = AnimatorManager.AnimationType.IDLE)
@@ -71,6 +84,7 @@ public class PlayerController : Singleton<PlayerController>
 		_canRun = false;
 		endgame.SetActive(true);
 		animatorManager.Play(animationType);
+		if(vfxDeath != null) vfxDeath.Play();
 
 	}
 	private void MoveBack(Transform t)
